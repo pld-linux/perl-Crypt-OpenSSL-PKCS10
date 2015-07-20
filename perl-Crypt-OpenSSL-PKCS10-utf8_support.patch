@@ -1,0 +1,41 @@
+diff -ruN Crypt-OpenSSL-PKCS10-0.14.orig/PKCS10.pm Crypt-OpenSSL-PKCS10-0.14/PKCS10.pm
+--- Crypt-OpenSSL-PKCS10-0.14.orig/PKCS10.pm	2014-09-16 20:49:27.000000000 +0200
++++ Crypt-OpenSSL-PKCS10-0.14/PKCS10.pm	2015-07-20 23:02:46.190862357 +0200
+@@ -96,10 +96,11 @@
+ 
+ =over 2
+ 
+-=item set_subject($subject)
++=item set_subject($subject, [ $utf8 ])
+ 
+ Sets the subject DN of the request.
+-Note: $subject is expected to be in the format /type0=value0/type1=value1/type2=... where characters may be escaped by \
++Note: $subject is expected to be in the format /type0=value0/type1=value1/type2=... where characters may be escaped by \.
++If $utf8 is non-zero integer, $subject is interpreted as UTF-8 string.
+ 
+ =item add_ext($nid, $extension)
+ 
+diff -ruN Crypt-OpenSSL-PKCS10-0.14.orig/PKCS10.xs Crypt-OpenSSL-PKCS10-0.14/PKCS10.xs
+--- Crypt-OpenSSL-PKCS10-0.14.orig/PKCS10.xs	2014-09-16 20:48:21.000000000 +0200
++++ Crypt-OpenSSL-PKCS10-0.14/PKCS10.xs	2015-07-20 23:00:17.113517886 +0200
+@@ -477,9 +477,10 @@
+ 	RETVAL
+ 
+ int
+-set_subject(pkcs10, subj_SV)
++set_subject(pkcs10, subj_SV, utf8 = 0)
+ 	pkcs10Data *pkcs10;
+ 	SV* subj_SV;
++	int utf8;
+ 
+ 	PREINIT:
+ 	unsigned char* subj;
+@@ -488,7 +489,7 @@
+ 	CODE:
+ 	subj = SvPV(subj_SV, subj_length);
+ 
+-	RETVAL = build_subject(pkcs10->req, subj, MBSTRING_ASC, 0);
++	RETVAL = build_subject(pkcs10->req, subj, utf8 ? MBSTRING_UTF8 : MBSTRING_ASC, 0);
+ 	if (!RETVAL)
+ 		croak ("build_subject");
+ 
