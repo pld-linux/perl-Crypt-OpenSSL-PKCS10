@@ -7,12 +7,12 @@
 %include	/usr/lib/rpm/macros.perl
 Summary:	Crypt::OpenSSL::PKCS10 - Perl extension to OpenSSL's PKCS10 API
 Name:		perl-%{pdir}-%{pnam}
-Version:	0.15
+Version:	0.16
 Release:	1
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/%{pdir}/%{pdir}-%{pnam}-%{version}.tar.gz
-# Source0-md5:	3cb59192c437c106dc2073717ebccc9b
+# Source0-md5:	4ce36d4779fef48fcaf76fb8d5779b04
 URL:		http://search.cpan.org/dist/Crypt-OpenSSL-PKCS10/
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
