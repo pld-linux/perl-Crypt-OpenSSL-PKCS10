@@ -4,7 +4,6 @@
 
 %define		pdir	Crypt
 %define		pnam	OpenSSL-PKCS10
-%include	/usr/lib/rpm/macros.perl
 Summary:	Crypt::OpenSSL::PKCS10 - Perl extension to OpenSSL's PKCS10 API
 Name:		perl-%{pdir}-%{pnam}
 Version:	0.16
